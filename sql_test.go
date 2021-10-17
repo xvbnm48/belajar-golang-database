@@ -12,7 +12,7 @@ func TestExecSql(t *testing.T) {
 
 	ctx := context.Background()
 
-	script := "INSERT INTO customer(id, name) VALUES('sakura','sakura endo')"
+	script := "INSERT INTO customer(id, name) VALUES('nogi','asuka saitou')"
 	_, err := db.ExecContext(ctx, script)
 
 	if err != nil {
@@ -20,4 +20,19 @@ func TestExecSql(t *testing.T) {
 	}
 
 	fmt.Println("success insert new customer")
+}
+func TestQuerySql(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	script := "SELECT id, name FROM customer"
+	rows, err := db.QueryContext(ctx, script)
+
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
 }
